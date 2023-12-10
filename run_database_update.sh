@@ -125,7 +125,6 @@ log_message "Aicraft Table updated, Picture URLs updated"
 # Execute SQL commands from the triggers file
 log_message "Executing SQL commands from $triggers_sql_file"
 execute_sql_file "$triggers_sql_file"
-log_message "Trigger updated"
 
 # VACUUM
 log_message "Vaccum database"

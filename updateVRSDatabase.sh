@@ -11,15 +11,17 @@ log_message() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$log_file"
 }
 
+log_message "Starting update process for BaseStation.sqb"
+
 # Function to run a script and log the start and end times
 run_script() {
     script_name=$1
     log_message "Starting $script_name"
-    
+
     start_time=$(date +%s)
     "$scripts_path/$script_name"
     end_time=$(date +%s)
-    
+
     runtime=$((end_time - start_time))
     log_message "Finished $script_name in $runtime seconds"
 }
