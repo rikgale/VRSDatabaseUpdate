@@ -22,6 +22,7 @@ sql_files=(
     "4ProcessADSBxTable.sql"
     "5ProcessICAO24Table.sql"
     "6ProcessOSkyData.sql"
+    "6aProcessPATable.sql"
     "7CreateBasicAircraftPre.sql"
     "8CreatePBAircraft.sql"
     "9CreateFullAircraft.sql"
