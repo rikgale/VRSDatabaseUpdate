@@ -1,12 +1,11 @@
 #!/bin/bash
 
-base_path="/home/pi/VirtualRadarServer/VRS-Extras"
-log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
-database_path="$base_path/Databases/Database/modTemp.sqb"
-sql_path="$base_path/DatabaseUpdateFiles/sql"
+base_path="/home/pi"
+log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
+database_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/modTemp.sqb"
+sql_path="$base_path/VRSDatabaseUpdate/sql"
 locking_mode="EXCLUSIVE"
 busy_timeout="500000"
-
 
 # Function to log messages to the file
 log_message() {

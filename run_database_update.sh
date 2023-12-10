@@ -1,22 +1,46 @@
 #!/bin/bash
 
-base_path="/home/pi/VirtualRadarServer/VRS-Extras"
-log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
-database_path="$base_path/Databases/Database/modTemp.sqb"
-base_station_database="$base_path/Databases/Database/BaseStation.sqb"
-preprocess_sql_file="$base_path/DatabaseUpdateFiles/sql/10PreProcessAicraftTable.sql"
-triggers_sql_file="$base_path/DatabaseUpdateFiles/sql/11Triggers.sql"
+base_path="/home/pi"
+log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
+database_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/modTemp.sqb"
+base_station_database="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/BaseStation.sqb"
+preprocess_sql_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/sql/10PreProcessAicraftTable.sql"
+triggers_sql_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/sql/11Triggers.sql"
 backup_name="BaseStation_Backup_$(date +%Y-%m-%d_%H-%M).sqb"
-backup_path="$base_path/Databases/DatabaseBackup/$backup_name"
+backup_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/DatabaseBackup/$backup_name"
+
 
 # Function to log messages to the file
 log_message() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" >> "$log_file"
 }
 
-# Function to execute SQL commands from a file
+
 execute_sql_file() {
-    sqlite3 "$base_station_database" < "$1" >> "$log_file" 2>&1
+    sql_file="$1"
+
+    # Check if the file path exists
+    if [ ! -d "$(dirname "$sql_file")" ]; then
+        log_message "Error: Directory $(dirname "$sql_file") does not exist."
+        return
+    fi
+
+    # Check if the SQL file exists
+    if [ -f "$sql_file" ]; then
+        log_message "SQL file $sql_file exists. Executing SQL commands."
+
+        # Execute SQL commands from the file
+        output=$(sqlite3 "$base_station_database" < "$sql_file" 2>&1)
+        log_message "Execution output: $output"
+
+        if [ -z "$output" ]; then
+            log_message "Executed SQL commands from $sql_file"
+        else
+            log_message "Error: Failed to execute SQL commands from $sql_file. Details: $output"
+        fi
+    else
+        log_message "Error: SQL file $sql_file does not exist."
+    fi
 }
 
 

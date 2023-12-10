@@ -4,7 +4,7 @@ base_path="/home/pi/VirtualRadarServer/VRS-Extras"
 log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
 
 # Path to scripts
-scripts_path="/usr/local/bin"
+scripts_path="/home/pi/VRSDatabaseUpdate"
 
 # Function to log messages with timestamps
 log_message() {
@@ -32,8 +32,15 @@ processmodTempdb_script="processmodTempdb.sh"
 run_database_update_script="run_database_update.sh"
 
 # Run scripts
+
+total_start_time=$(date +%s)
+
 run_script "$ADSB_script"
 run_script "$ICAO24_script"
 run_script "$createmodTempdb_script"
 run_script "$processmodTempdb_script"
 run_script "$run_database_update_script"
+
+total_end_time=$(date +%s)
+total_runtime=$((total_end_time - total_start_time))
+log_message "Total runtime for all scripts to update BaseStation.sqb: $total_runtime seconds"
