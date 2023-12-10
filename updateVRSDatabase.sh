@@ -1,10 +1,10 @@
 #!/bin/bash
 
-base_path="/home/pi/VirtualRadarServer/VRS-Extras"
-log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
+base_path="/home/pi"
+log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 
 # Path to scripts
-scripts_path="/home/pi/VRSDatabaseUpdate"
+scripts_path="$base_path/VRSDatabaseUpdate"
 
 # Function to log messages with timestamps
 log_message() {
