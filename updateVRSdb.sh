@@ -148,12 +148,11 @@ fi
 # Run SQLite commands with logging
 log "Starting SQLite commands."
 
-# Execute SQL commands from the separate file
-sqlite3 "$database_path" << EOF > "$sqlite_output_file" 2>> "$log_file"
--- sql_commands.sql
 
-PRAGMA locking_mode=EXCLUSIVE;
-PRAGMA busy_timeout=500000;
+# Import  ADSBx Database
+log "Starting Import of ADSBx Database"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 
 -- This section imports ADSBx data from dbdata.csv file
@@ -164,7 +163,15 @@ CREATE TABLE IF NOT EXISTS "$table_name" AS
 -- Import data from CSV file into the new table
 .mode csv
 .import "$csv_file" "$table_name"
+EOF
 
+log "Completed Import of ADSBx Database"
+
+
+# Import ICAO Codes Table
+log "Starting import of ICAO Codes Table"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports List of ICAO codes from ICAOList.csv
 -- Create a new table for ICAOList
@@ -178,7 +185,14 @@ CREATE TABLE IF NOT EXISTS "$icao_list_table_name" (
 -- Import data from ICAOList.csv into the new table
 .mode csv
 .import "$icao_list_file" "$icao_list_table_name"
+EOF
 
+log "Completed ICAO Code Table import"
+
+# Import Registration Prefix
+log "Starting import Registration Prefix table"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports List of Registration Prefixes from Regprefixlist.csv
 -- Create a new table for ICAOList
@@ -191,8 +205,15 @@ CREATE TABLE IF NOT EXISTS "$reg_prefix_list_table_name" (
 -- Import data from Regprefixlist.csv into the new table
 .mode csv
 .import "$reg_prefix_list_csv" "$reg_prefix_list_table_name"
+EOF
+
+log "Completed Registration Prefix import"
 
 
+# Import Plane Alert Images
+log "Staring Import of PlaneAlert image URLs"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- This section imports List of Plane Images URL from plane_images.csv
 -- Create a new table for ICAOList
 CREATE TABLE IF NOT EXISTS "$pa_db_table_name" (
@@ -206,8 +227,15 @@ CREATE TABLE IF NOT EXISTS "$pa_db_table_name" (
 -- Import data from plane_iamges.csv into the new table
 .mode csv
 .import "$pa_db_csv" "$pa_db_table_name"
+EOF
+
+log "Completed PlaneAlert image URLs import"
 
 
+# Import OpenSky Database
+log "Starting Import of Opensky Database"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- This setion imports OpenSky data from downloaded file aircraftData.csv
 -- Create a new table for OSkyData
 CREATE TABLE IF NOT EXISTS "$os_db_table_name" AS
@@ -216,8 +244,15 @@ CREATE TABLE IF NOT EXISTS "$os_db_table_name" AS
 -- Import data from aircraftDatabase.CSV file into the new table
 .mode csv
 .import "$os_db_path" "$os_db_table_name"
+EOF
+
+log "Completed OpenSky Database import"
 
 
+# Import icao24plus.txt (Mictronics)
+log "Starting Import of icao24plus"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- This section imports data from icao24plus.txt
 -- Create a new table for ICAO24
 CREATE TABLE IF NOT EXISTS "$icao24_table_name" (
@@ -230,8 +265,16 @@ CREATE TABLE IF NOT EXISTS "$icao24_table_name" (
 -- Import data from icao24plus.txt into the new table
 .mode tabs
 .import "$icao24_txt_file" "$icao24_table_name"
+EOF
+
+log "Completed icao24plus import"
 
 
+
+# Import ICAOType conversions
+log "Starting import of ICAOType conversions"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- This section imports data for the ICAO Type Conversions
 -- Create a new table for ICAOTypeConversion
 CREATE TABLE IF NOT EXISTS "$icao_type_conversion_table_name" AS
@@ -240,8 +283,15 @@ CREATE TABLE IF NOT EXISTS "$icao_type_conversion_table_name" AS
 -- Import data from ICAOTypeConversion.csv into the new table
 .mode csv
 .import "$icao_type_conversion_csv" "$icao_type_conversion_table_name"
+EOF
+
+log "Completed ICAOType conversion import"
 
 
+# Import Military Operator ailine ICAO codes
+log "Starting import of MilICAOOperatorLookup"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- This section handles Military ICAO operator lookups and imports them
 -- Create a new table for MilICAOOperatorLookup with the same column names as the CSV file
 CREATE TABLE IF NOT EXISTS "$mil_type_op_lookup_table_name" AS
@@ -250,8 +300,16 @@ CREATE TABLE IF NOT EXISTS "$mil_type_op_lookup_table_name" AS
 -- Import data from CSV file into the new table
 .mode csv
 .import "$mil_icao_op_lookup_csv" "$mil_type_op_lookup_table_name"
+EOF
+
+log "Completed MilICAOOperatorLookup import"
 
 
+# Import PlaneBase data
+log "Importing PlaneBase data from databases..."
+
+# Import Bizjets
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- The setions below import the Aircraft table from the two attached databases BJAircraft and JPAircraft
 
 -- Attach the BJ database
@@ -262,7 +320,14 @@ CREATE TABLE IF NOT EXISTS "$base_station_bj_aircraft_table" AS
   SELECT * FROM bj_db."$bj_aircraft_table";
 
 DETACH DATABASE bj_db;
+EOF
 
+log "BizJets DB imported"
+
+
+# Import JetProps
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 -- Attach the JP database
 ATTACH DATABASE '$jp_database_path' AS jp_db;
 
@@ -271,11 +336,8 @@ CREATE TABLE IF NOT EXISTS "$base_station_jp_aircraft_table" AS
   SELECT * FROM jp_db."$jp_aircraft_table";
 
 DETACH DATABASE jp_db;
-
-
--- End of SQL commands
-
 EOF
 
-log "SQLite commands completed."
-cat "$sqlite_output_file"
+log "JetProp DB imported"
+
+log "All SQLite commands completed."
