@@ -199,7 +199,8 @@ CREATE TABLE IF NOT EXISTS "$pa_db_table_name" (
   ModeS TEXT,
   PictureURL1 TEXT,
   PictureURL2 TEXT,
-  PictureURL3 TEXT
+  PictureURL3 TEXT,
+  PictureURL4 TEXT
 );
 
 -- Import data from plane_iamges.csv into the new table
