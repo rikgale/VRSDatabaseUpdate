@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Check if base_path argument is provided
-if [ -z "$1" ]; then
-    echo "Error: base_path argument is missing." >> "$log_file"
-    exit 1
-fi
-
-base_path="$1"
-
-###base_path="/home/pi"
+base_path="/home/pi"
 log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 database_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/modTemp.sqb"
 sql_path="$base_path/VRSDatabaseUpdate/sql"
@@ -68,4 +60,3 @@ done
 if [ $errors -eq 0 ]; then
     log_message "All SQL files executed successfully. Total time taken: $total_time seconds"
 fi
-
