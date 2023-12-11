@@ -117,10 +117,29 @@ BEGIN
   AND AircraftID = NEW.AircraftID;
 END;
 
--- Drop SetManufacturer trigger
-DROP TRIGGER IF EXISTS SetManufacturer;
--- Recreate SetManufacturer trigger
-CREATE TRIGGER SetManufacturer
+-- Drop GNYNH90 trigger
+DROP TRIGGER IF EXISTS GNYNH90;
+-- Recreate GNYNH90 trigger
+CREATE TRIGGER GNYNH90
+  AFTER UPDATE
+  ON Aircraft
+BEGIN
+  UPDATE Aircraft
+  SET Manufacturer = 'NH Industries',
+      Type = 'NH Industries NH90-NTH',
+      OperatorFlagCode = 'GNY-NH90',
+      RegisteredOwners = 'German Navy',
+	  UserBool1 = '1',
+	  UserString1 = NULL
+  WHERE OperatorFlagCode = 'GNY'
+  AND ICAOTypeCode = 'NH90'
+  AND AircraftID = NEW.AircraftID;
+END;
+
+-- Drop SetH60Manufacturer trigger
+DROP TRIGGER IF EXISTS SetH60Manufacturer;
+-- Recreate SetH60Manufacturer trigger
+CREATE TRIGGER SetH60Manufacturer
   AFTER UPDATE
   ON Aircraft
 BEGIN
