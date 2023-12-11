@@ -1,15 +1,24 @@
 #!/bin/bash
 
+# Check if base_path argument is provided
+if [ -z "$1" ]; then
+    echo "Error: base_path argument is missing."
+    exit 1
+fi
+
+base_path="$1"
+
 # Function to log messages to the file
 log_message() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" >> "$log_file"
 }
 
-base_path="/home/pi/VirtualRadarServer/VRS-Extras"
-log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
+# Set the base path
+###base_path="/home/pi"
+log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 url="https://mictronics.de/aircraft-database/icao24plus.php"
 output_zip="downloaded_file.zip"
-target_folder="$base_path/DatabaseUpdateFiles"
+target_folder="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles"
 license_file="LICENSE"
 icao_file="icao24plus.txt"
 

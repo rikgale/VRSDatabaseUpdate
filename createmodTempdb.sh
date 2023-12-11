@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# Check if base_path argument is provided
+if [ -z "$1" ]; then
+    echo "Error: base_path argument is missing." >> "$log_file"
+    exit 1
+fi
+
+base_path="$1"
+
+
 # Define variables for file locations and names
-base_path="/home/pi/VirtualRadarServer/VRS-Extras"
 log_file="$base_path/DatabaseUpdateFiles/updateVRSdb.log"
 database_path="$base_path/Databases/Database/modTemp.sqb"
 csv_file="$base_path/DatabaseUpdateFiles/dbdata.csv"

@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# Check if base_path argument is provided
+if [ -z "$1" ]; then
+    echo "Error: base_path argument is missing."
+    exit 1
+fi
+
+base_path="$1"
+ 
 # Set the base path
-BASE_PATH="/home/pi/VirtualRadarServer/VRS-Extras"
-DATABASE_UPDATE_PATH="${BASE_PATH}/DatabaseUpdateFiles"
+DATABASE_UPDATE_PATH="${BASE_PATH}/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles"
 LOG_FILE="${DATABASE_UPDATE_PATH}/updateVRSdb.log"
 
 # Ensure the DatabaseUpdateFiles directory exists
@@ -18,6 +25,7 @@ URL="https://downloads.adsbexchange.com/downloads/basic-ac-db.json.gz"
 COMPRESSED_FILE="basic-ac-db.json.gz"
 UNCOMPRESSED_FILE="basic-ac-db.json"
 CSV_FILE="${DATABASE_UPDATE_PATH}/dbdata.csv"
+
 
 # Record the start time
 start_time=$(date +%s)

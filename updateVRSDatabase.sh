@@ -19,7 +19,7 @@ run_script() {
     log_message "Starting $script_name"
 
     start_time=$(date +%s)
-    "$scripts_path/$script_name"
+    "$scripts_path/$script_name" "$base_path"
     end_time=$(date +%s)
 
     runtime=$((end_time - start_time))
