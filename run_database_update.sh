@@ -115,6 +115,46 @@ FROM modTemp.PlaneImages
 WHERE Aircraft.ModeS = modTemp.PlaneImages.ModeS;
 
 
+
+-- Update OperatorFlagCode For Special Colours
+
+-- Update OperatorFlagCode for entries with length 3 and meet the specified condition
+UPDATE Aircraft
+SET OperatorFlagCode = CASE
+    WHEN LENGTH(Aircraft.OperatorFlagCode) = 3 THEN Aircraft.OperatorFlagCode || '-' || Aircraft.ICAOTypeCode || Aircraft.Registration
+    ELSE Aircraft.OperatorFlagCode
+END
+FROM modTemp.OperatorFlags -- Use the attached database name as a prefix
+WHERE Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND Aircraft.OperatorFlagCode NOT LIKE '%' || Aircraft.Registration || '%';
+
+-- Update OperatorFlagCode for entries with '-' as the 4th character
+UPDATE Aircraft
+SET OperatorFlagCode = OperatorFlagCode || Aircraft.Registration
+FROM modTemp.OperatorFlags -- Use the attached database name as a prefix
+WHERE Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND SUBSTR(OperatorFlagCode, 4, 1) = '-'
+  AND Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND Aircraft.OperatorFlagCode NOT LIKE '%' || Aircraft.Registration || '%';
+
+-- Update OperatorFlagCode for entries with 'BLANK' OperatorFlagCode
+UPDATE Aircraft
+SET OperatorFlagCode = REPLACE(modTemp.OperatorFlags.Name, '.bmp', '')
+FROM modTemp.OperatorFlags -- Use the attached database name as a prefix
+WHERE Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND Aircraft.OperatorFlagCode = 'BLANK'
+  AND Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND Aircraft.OperatorFlagCode NOT LIKE '%' || Aircraft.Registration || '%';
+
+-- Update LastModified to be equal to FirstCreated for those specials that are left
+UPDATE Aircraft
+SET LastModified = FirstCreated
+FROM modTemp.OperatorFlags -- Use the attached database name as a prefix
+WHERE Aircraft.Registration = modTemp.OperatorFlags.Registration
+  AND Aircraft.OperatorFlagCode NOT LIKE '%' || Aircraft.Registration || '%';
+
+
+
 -- Detach modTemp database
 DETACH DATABASE modTemp;
 EOF

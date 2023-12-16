@@ -17,7 +17,8 @@ log_message() {
 sql_files=(
     "1LookupAgainstICAOLookUp.sql"
     "2ProcessMilICAOOperatorLookUp.sql"
-    "3OperatorFlagCodeUpdates.sql"
+    "3aMilOperatorFlagCodeUpdates.sql"
+    "3bOperatorFlagRegExtract.sql"
     "4ProcessADSBxTable.sql"
     "5ProcessICAO24Table.sql"
     "6ProcessOSkyData.sql"

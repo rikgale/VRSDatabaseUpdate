@@ -324,10 +324,10 @@ log "Completed MilICAOOperatorLookup import"
 log "Starting import of OperatorFlagsList"
 
 sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
--- This section handles Military ICAO operator lookups and imports them
--- Create a new table for MilICAOOperatorLookup with the same column names as the>
+-- This section handles Operator Flag lookups and imports them
+-- Create a new table for Operater Flag with the same column names as the CSV fie
 CREATE TABLE IF NOT EXISTS "$operator_flag_table_name" AS
-  SELECT * FROM (SELECT * FROM csv('$operator_flag_list_csv') WHERE 1=0) AS temp_>
+  SELECT * FROM (SELECT * FROM csv('$operator_flag_list_csv') WHERE 1=0) AS temp_table;
 
 -- Import data from CSV file into the new table
 .mode csv
