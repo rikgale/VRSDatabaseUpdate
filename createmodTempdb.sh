@@ -34,6 +34,9 @@ reg_prefix_list_table_name="RegPrefixList"
 pa_db_url="https://raw.githubusercontent.com/sdr-enthusiasts/plane-alert-db/main/plane_images.csv"
 pa_db_csv="$base_path/DatabaseUpdateFiles/plane_images.csv"
 pa_db_table_name="PlaneImages"
+operator_flag_list_url="https://raw.githubusercontent.com/rikgale/VRSOperatorFlags/main/OperatorFlagsList.csv"
+operator_flag_list_csv="$base_path/DatabaseUpdateFiles/operatorflags.csv"
+operator_flag_table_name="OperatorFlags"
 
 # SQL file with variables
 update_database_sql="$base_path/DatabaseUpdateFiles/sql/create_temp_database.sql"
@@ -61,6 +64,13 @@ delete_if_exists() {
     log "Deleted file: $file"
   fi
 }
+
+# Delete old OperatorFlags.csv
+delete_if_exists "$operator_flag_list_csv"
+
+# Download the latest ICAOList.csv from GitHub
+download_file "$operator_flag_list_url" "$operator_flag_list_csv"
+
 
 # Delete old ICAOList.csv
 delete_if_exists "$icao_list_file"
@@ -143,6 +153,11 @@ if [ ! -e "$pa_db_csv" ]; then
   exit 1
 fi
 
+# Check if OperatorFlags.csv exists
+if [ ! -e "$operator_flag_list_csv" ]; then
+  log "Error: $operator_flag_list_csv does not exist. Exiting script."
+  exit 1
+fi
 
 
 # Run SQLite commands with logging
@@ -303,6 +318,25 @@ CREATE TABLE IF NOT EXISTS "$mil_type_op_lookup_table_name" AS
 EOF
 
 log "Completed MilICAOOperatorLookup import"
+
+
+# Import Operator Flags List
+log "Starting import of OperatorFlagsList"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
+-- This section handles Military ICAO operator lookups and imports them
+-- Create a new table for MilICAOOperatorLookup with the same column names as the>
+CREATE TABLE IF NOT EXISTS "$operator_flag_table_name" AS
+  SELECT * FROM (SELECT * FROM csv('$operator_flag_list_csv') WHERE 1=0) AS temp_>
+
+-- Import data from CSV file into the new table
+.mode csv
+.import "$operator_flag_list_csv" "$operator_flag_table_name"
+EOF
+
+log "Completed Operator Flags import"
+
+
 
 
 # Import PlaneBase data
