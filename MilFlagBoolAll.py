@@ -7,8 +7,8 @@ import sqlite3
 #            and the Countries.dat files in the same directory!
 
 # Store the name of the countries.dat file and the database in a variable
-source = 'VirtualRadarServer/VRS-Extras/Databases/Database/Countries.dat'
-database = 'VirtualRadarServer/VRS-Extras/Databases/Database/BaseStation.sqb'
+source = '/home/pi/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/Countries.dat'
+database = '/home/pi/VirtualRadarServer/VRS-Extras/Databases/Database/BaseStation.sqb'
 
 # Create a dictionary of countries and bitmaps from the countries.dat file
 countries = {}

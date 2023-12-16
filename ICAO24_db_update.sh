@@ -34,7 +34,7 @@ wget "$url" -O "$output_zip"
 
 # Extract the contents of the ZIP file directly into the target folder
 log_message "Extracting ZIP ICAO24 file..."
-unzip -j "$output_zip" -d "$target_folder"
+unzip -j "$output_zip" -d "$target_folder"  >> "$log_file" 2>&1
 
 # Delete the license file
 log_message "Deleting license file..."

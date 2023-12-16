@@ -3,6 +3,14 @@
 base_path="/home/pi"
 log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 
+
+# Check if the log file exists and delete it
+if [ -e "$log_file" ]; then
+    rm "$log_file"
+    echo "Existing log file deleted."
+fi
+
+
 # Path to scripts
 scripts_path="$base_path/VRSDatabaseUpdate"
 
@@ -32,6 +40,7 @@ ICAO24_script="ICAO24_db_update.sh"
 createmodTempdb_script="createmodTempdb.sh"
 processmodTempdb_script="processmodTempdb.sh"
 run_database_update_script="run_database_update.sh"
+updateCountries_script="updateCountries.sh"
 
 # Run scripts
 
@@ -42,6 +51,7 @@ run_script "$ICAO24_script"
 run_script "$createmodTempdb_script"
 run_script "$processmodTempdb_script"
 run_script "$run_database_update_script"
+run_script "$updateCountries_script"
 
 total_end_time=$(date +%s)
 total_runtime=$((total_end_time - total_start_time))
