@@ -44,5 +44,5 @@ ALTER TABLE ICAO24 ADD COLUMN OperatorFlagCode TEXT;
 ALTER TABLE ICAO24 ADD COLUMN UserNotes TEXT; 
 
 -- Set initial values for the new columns
-UPDATE ICAO24 SET RegisteredOwners = 'unknown', OperatorFlagCode = 'BLANK', UserNotes = 'Updated S2: ' || DATETIME('now');
+UPDATE ICAO24 SET RegisteredOwners = 'Unknown', OperatorFlagCode = 'BLANK', UserNotes = 'S2: ' || DATETIME('now');
 

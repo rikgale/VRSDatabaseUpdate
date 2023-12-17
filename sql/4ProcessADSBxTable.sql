@@ -40,5 +40,5 @@ ALTER TABLE ADSBx ADD COLUMN OperatorFlagCode TEXT;
 ALTER TABLE ADSBx ADD COLUMN UserNotes TEXT;
 
 -- Set initial values for the new columns
-UPDATE ADSBx SET RegisteredOwners = 'unknown', OperatorFlagCode = 'BLANK1', UserNotes = 'Updated S3: ' || DATETIME('now');
+UPDATE ADSBx SET RegisteredOwners = 'Unknown', OperatorFlagCode = 'BLANK1', UserNotes = 'S3: ' || DATETIME('now');
 

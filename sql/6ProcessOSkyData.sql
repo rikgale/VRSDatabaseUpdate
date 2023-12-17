@@ -92,4 +92,4 @@ END;
 
 -- Add UserNotes column and populate it 
 ALTER TABLE OSkyData ADD COLUMN UserNotes TEXT;
-UPDATE OSkyData SET UserNotes = 'Updated S4 ' || DATETIME('now');
+UPDATE OSkyData SET UserNotes = 'S4: ' || DATETIME('now');
