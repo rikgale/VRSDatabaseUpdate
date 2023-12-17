@@ -67,6 +67,25 @@ SET YearBuilt = CASE
     ELSE ''
 END;
 
+-- Remove commas from all columns in OSkyData
+UPDATE OSkyData
+SET
+    ModeS = REPLACE(ModeS, ',', ''),
+    Registration = REPLACE(Registration, ',', ''),
+    Manufacturer = REPLACE(Manufacturer, ',', ''),
+    ICAOTypeCode = REPLACE(ICAOTypeCode, ',', ''),
+    Type = REPLACE(Type, ',', ''),
+    RegisteredOwners = REPLACE(RegisteredOwners, ',', ''),
+    SerialNo = REPLACE(SerialNo, ',', ''),
+    OperatorFlagCode = REPLACE(OperatorFlagCode, ',', ''),
+    YearBuilt = REPLACE(YearBuilt, ',', '');
+-- Add more columns if needed
+
+-- Optionally, update the UserNotes column
+UPDATE OSkyData
+SET UserNotes = REPLACE(UserNotes, ',', '');
+
+
 -- Update OperatorFlagCode COLUMN when 4 or more char
 UPDATE OSkyData
 SET OperatorFlagCode = CASE
