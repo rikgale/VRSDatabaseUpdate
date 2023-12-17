@@ -1,13 +1,14 @@
 #!/bin/bash
 
 base_path="/home/pi"
+backup_path_folder="$base_path/VirtualRadarServer/VRS-Extras/Databases/DatabaseBackup"
 log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 database_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/modTemp.sqb"
 base_station_database="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/BaseStation.sqb"
 preprocess_sql_file="$base_path/VRSDatabaseUpdate/sql/10PreProcessAicraftTable.sql"
 triggers_sql_file="$base_path/VRSDatabaseUpdate/sql/11Triggers.sql"
 backup_name="BaseStation_Backup_$(date +%Y-%m-%d_%H-%M).sqb"
-backup_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/DatabaseBackup/$backup_name"
+backup_path="$backup_path_folder/$backup_name"
 
 
 # Function to log messages to the file
@@ -27,7 +28,9 @@ execute_sql_file() {
     fi
 }
 
-
+# Delete everything in the backup folder
+log_message "Deleting old backups: $backup_path_folder"
+rm -rf "$backup_path_folder"/*.sqb
 
 # Record start time for backup
 backup_start_time=$(date +%s)
