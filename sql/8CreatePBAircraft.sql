@@ -58,6 +58,6 @@ FROM (
 GROUP BY ModeS;
 
 UPDATE PBAircraft
-SET UserNotes = 'Updated S1: ' || datetime('now')
+SET UserNotes = 'S1: ' || datetime('now')
 WHERE UserNotes IS NULL OR TRIM(UserNotes) = '';
 

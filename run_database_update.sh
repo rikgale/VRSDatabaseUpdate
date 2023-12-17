@@ -27,6 +27,10 @@ execute_sql_file() {
     fi
 }
 
+# Delete files ending with .sqb in the backup_path
+log_message "Deleting existing backup files in $backup_path"
+find "$backup_path" -name "*.sqb" -exec rm -f {} \;
+
 
 # Record start time for backup
 backup_start_time=$(date +%s)
