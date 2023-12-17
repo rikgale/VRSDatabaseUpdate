@@ -79,11 +79,7 @@ SET
     SerialNo = REPLACE(SerialNo, ',', ''),
     OperatorFlagCode = REPLACE(OperatorFlagCode, ',', ''),
     YearBuilt = REPLACE(YearBuilt, ',', '');
--- Add more columns if needed
 
--- Optionally, update the UserNotes column
-UPDATE OSkyData
-SET UserNotes = REPLACE(UserNotes, ',', '');
 
 
 -- Update OperatorFlagCode COLUMN when 4 or more char
