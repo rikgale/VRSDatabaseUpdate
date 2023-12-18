@@ -41,8 +41,19 @@ ALTER TABLE ICAO24 ADD COLUMN RegisteredOwners TEXT;
 ALTER TABLE ICAO24 ADD COLUMN OperatorFlagCode TEXT;
 
 -- Add UserNotes column and populate it 
-ALTER TABLE ICAO24 ADD COLUMN UserNotes TEXT; 
+ALTER TABLE ICAO24 ADD COLUMN UserNotes TEXT;
 
 -- Set initial values for the new columns
 UPDATE ICAO24 SET RegisteredOwners = 'Unknown', OperatorFlagCode = 'BLANK', UserNotes = 'S2: ' || DATETIME('now');
 
+-- Update the "ICAO24" table, replacing commas in each column
+UPDATE "ICAO24"
+SET
+  ModeS = REPLACE(ModeS, ',', ''),
+  Registration = REPLACE(Registration, ',', ''),
+  ICAOTypeCode = REPLACE(ICAOTypeCode, ',', ''),
+  Type = REPLACE(Type, ',', ''),
+  Manufacturer = REPLACE(Manufacturer, ',', ''),
+  RegisteredOwners = REPLACE(RegisteredOwners, ',', ''),
+  OperatorFlagCode = REPLACE(OperatorFlagCode, ',', ''),
+  UserNotes = REPLACE(UserNotes, ',', '');
