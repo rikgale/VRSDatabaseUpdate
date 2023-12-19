@@ -57,7 +57,10 @@ FROM (
 ) AS CombinedAircraft
 GROUP BY ModeS;
 
-UPDATE PBAircraft
-SET UserNotes = 'S1: ' || datetime('now')
+
+UPDATE PBAircraft 
+SET UserNotes = 'S1: ' || LastModified 
 WHERE UserNotes IS NULL OR TRIM(UserNotes) = '';
 
+UPDATE PBAircraft
+SET Type = Manufacturer || ' ' || Type;
