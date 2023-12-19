@@ -157,7 +157,11 @@ CREATE TRIGGER UPDATEUSERNOTE
   ON Aircraft
 BEGIN
   UPDATE Aircraft
-  SET UserNotes = COALESCE(NEW.UserNotes || ', ', '') || 'Updated on: ' || NEW.LastModified
+  SET UserNotes = COALESCE(NEW.UserNotes || '. ', '') || 'Updated on: ' || NEW.LastModified
   WHERE NEW.LastModified != OLD.LastModified
   AND AircraftID = NEW.AircraftID;
 END;
+
+
+DROP TRIGGER IF EXISTS SetManufacturer;
+
