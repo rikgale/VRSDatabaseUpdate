@@ -78,6 +78,11 @@ SET
     Type = modTemp.FullAircraft.Type,
     SerialNo = modTemp.FullAircraft.SerialNo,
     RegisteredOwners = modTemp.FullAircraft.RegisteredOwners,
+    YearBuilt = CASE
+        WHEN Aircraft.YearBuilt IS NULL OR Aircraft.YearBuilt = '' OR Aircraft.YearBuilt != modTemp.FullAircraft.YearBuilt
+        THEN modTemp.FullAircraft.YearBuilt
+        ELSE Aircraft.YearBuilt
+    END,
     UserNotes = modTemp.FullAircraft.UserNotes,
     Interested = modTemp.FullAircraft.Interested,
     UserString1 = modTemp.FullAircraft.UserString1,
@@ -93,13 +98,13 @@ AND Aircraft.FirstCreated = Aircraft.LastModified;
 -- Insert new records into Aircraft from FullAircraft where they do not exist
 INSERT INTO Aircraft (
     FirstCreated, LastModified, ModeS, ModeSCountry, Country, Registration,
-    Status, Manufacturer, ICAOTypeCode, Type, SerialNo, RegisteredOwners,
+    YearBuilt, Status, Manufacturer, ICAOTypeCode, Type, SerialNo, RegisteredOwners,
     UserNotes, Interested, UserString1, UserString4, UserString5,
     UserInt1, UserInt3, OperatorFlagCode
 )
 SELECT
     FirstCreated, LastModified, ModeS, ModeSCountry, Country, Registration,
-    Status, Manufacturer, ICAOTypeCode, Type, SerialNo, RegisteredOwners,
+    YearBuilt, Status, Manufacturer, ICAOTypeCode, Type, SerialNo, RegisteredOwners,
     UserNotes, Interested, UserString1, UserString4, UserString5,
     UserInt1, UserInt3, OperatorFlagCode
 FROM modTemp.FullAircraft
