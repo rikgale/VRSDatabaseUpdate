@@ -1,3 +1,7 @@
+PRAGMA locking_mode=EXCLUSIVE;
+PRAGMA busy_timeout=500000;
+
+
 -- Reset the LastModified time using user tag RESET
 UPDATE Aircraft
 SET LastModified = FirstCreated,
