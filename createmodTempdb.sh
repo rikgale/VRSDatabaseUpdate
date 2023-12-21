@@ -247,11 +247,8 @@ sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports Years Year.csv
 -- Create a new table for ICAOList
-CREATE TABLE IF NOT EXISTS "$year_table_name" (
-  Country TEXT,
-  RegPrefix TEXT,
-  Notes TEXT
-);
+CREATE TABLE IF NOT EXISTS "$year_table_name" AS
+  SELECT * FROM (SELECT * FROM csv('year_csv') WHERE 1=0) AS temp_table;
 
 -- Import data from Year.csv into the new table
 .mode csv
@@ -268,11 +265,9 @@ sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports misocdes Miscode.csv
 -- Create a new table for ICAOList
-CREATE TABLE IF NOT EXISTS "$miscode_table_name" (
-  Country TEXT,
-  RegPrefix TEXT,
-  Notes TEXT
-);
+CREATE TABLE IF NOT EXISTS "$miscode_table_name" AS
+  SELECT * FROM (SELECT * FROM csv('$miscode_csv') WHERE 1=0) AS temp_table;
+
 
 -- Import data from Miscodes.csv into the new table
 .mode csv

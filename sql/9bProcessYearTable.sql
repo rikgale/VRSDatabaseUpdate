@@ -2,10 +2,13 @@
 ALTER TABLE "Year" RENAME COLUMN "HEX" TO "ModeS";
 
 -- Change Regn to Registration
-ALTER TABLE "Year" RENAME COLUMN "Regn" TO "Registration";
+ALTER TABLE "Year" RENAME COLUMN "Reg'n" TO "Registration";
 
 -- Change TypeICAO to ICAOTypeCode
-ALTER TABLE "Year" RENAME COLUMN "TypeICAO" TO "ICAOTypeCode";
+ALTER TABLE "Year" RENAME COLUMN "Type ICAO" TO "ICAOTypeCode";
+
+-- Change TypeICAO to ICAOTypeCode
+ALTER TABLE "Year" RENAME COLUMN "Year Built" TO "YearBuilt";
 
 -- Remove all rows where ModeS is empty or NULL using IFNULL
 DELETE FROM "Year" WHERE IFNULL("ModeS", '') = '';

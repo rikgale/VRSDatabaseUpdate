@@ -26,7 +26,9 @@ sql_files=(
     "7CreateBasicAircraftPre.sql"
     "8CreatePBAircraft.sql"
     "9CreateFullAircraft.sql"
-    "9aUpdateYears.sql"
+    "9bProcessYearTable.sql"
+    "9cProcessMiscodes.sql"
+    "9dUpdateYearInFullAircraft.sql"
 )
 
 # Variable to track errors
