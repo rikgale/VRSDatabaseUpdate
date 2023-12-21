@@ -37,6 +37,10 @@ pa_db_table_name="PlaneImages"
 operator_flag_list_url="https://raw.githubusercontent.com/rikgale/VRSOperatorFlags/main/OperatorFlagsList.csv"
 operator_flag_list_csv="$base_path/DatabaseUpdateFiles/operatorflags.csv"
 operator_flag_table_name="OperatorFlags"
+miscode_csv="$base_path/DatabaseUpdateFiles/Miscode.csv"
+miscode_table_name="Miscode"
+year_csv="$base_path/DatabaseUpdateFiles/Year.csv"
+year_table_name="Year"
 
 # SQL file with variables
 update_database_sql="$base_path/DatabaseUpdateFiles/sql/create_temp_database.sql"
@@ -159,6 +163,17 @@ if [ ! -e "$operator_flag_list_csv" ]; then
   exit 1
 fi
 
+# Check if Year.csv exists
+if [ ! -e "$year_csv" ]; then
+  log "Error: $year_csv does not exist. Exiting script."
+  exit 1
+fi
+
+# Check if Miscode.csv exists
+if [ ! -e "$miscode_csv" ]; then
+  log "Error: $miscode_csv does not exist. Exiting script."
+  exit 1
+fi
 
 # Run SQLite commands with logging
 log "Starting SQLite commands."
@@ -223,6 +238,49 @@ CREATE TABLE IF NOT EXISTS "$reg_prefix_list_table_name" (
 EOF
 
 log "Completed Registration Prefix import"
+
+
+# Import Years
+log "Starting import Year table"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
+
+-- This section imports Years Year.csv
+-- Create a new table for ICAOList
+CREATE TABLE IF NOT EXISTS "$year_table_name" (
+  Country TEXT,
+  RegPrefix TEXT,
+  Notes TEXT
+);
+
+-- Import data from Year.csv into the new table
+.mode csv
+.import "$year_csv" "$year_table_name"
+EOF
+
+log "Completed Year import"
+
+
+# Import Miscode
+log "Starting import Miscode table"
+
+sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
+
+-- This section imports misocdes Miscode.csv
+-- Create a new table for ICAOList
+CREATE TABLE IF NOT EXISTS "$miscode_table_name" (
+  Country TEXT,
+  RegPrefix TEXT,
+  Notes TEXT
+);
+
+-- Import data from Miscodes.csv into the new table
+.mode csv
+.import "$miscode_csv" "$miscode_table_name"
+EOF
+
+log "Completed Miscodes import"
+
 
 
 # Import Plane Alert Images
