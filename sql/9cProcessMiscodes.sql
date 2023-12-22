@@ -6,7 +6,7 @@ ALTER TABLE "Miscode" DROP COLUMN "Blank1";
 ALTER TABLE "Miscode" DROP COLUMN "Blank2";
 
 -- Change HEX to ModeS
-ALTER TABLE "Miscode" RENAME COLUMN "HEX" TO "ModeS";
+ALTER TABLE "Miscode" RENAME COLUMN "HEX" TO "CorrectModeS";
 
 -- Change TypeICAO to ICAOTypeCode
 ALTER TABLE "Miscode" RENAME COLUMN "Type ICAO" TO "ICAOTypeCode";
@@ -25,6 +25,9 @@ ALTER TABLE "Miscode" RENAME COLUMN "C/No" TO "SerialNo";
 
 -- Change Year Built to YearBuilt
 ALTER TABLE "Miscode" RENAME COLUMN "Year Built" TO "YearBuilt";
+
+-- Change Year Built to YearBuilt
+ALTER TABLE "Miscode" RENAME COLUMN "Reg'n" TO "Registration";
 
 -- Delete rows where Miscode is null or an empty string 
 DELETE FROM "Miscode" WHERE IFNULL("Miscode", '') = '';
