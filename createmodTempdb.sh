@@ -247,8 +247,14 @@ sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports Years Year.csv
 -- Create a new table for ICAOList
-CREATE TABLE IF NOT EXISTS "$year_table_name" AS
-  SELECT * FROM (SELECT * FROM csv('year_csv') WHERE 1=0) AS temp_table;
+CREATE TABLE IF NOT EXISTS "$year_table_name" (
+  "HEX" TEXT,
+  "Reg'n" TEXT,
+  "Type ICAO" TEXT,
+  "Year Built" TEXT,
+  "Blank1" TEXT,
+  "Blank2" TEXT
+);
 
 -- Import data from Year.csv into the new table
 .mode csv
@@ -265,8 +271,19 @@ sqlite3 "$database_path" << EOF >> "$log_file" 2>&1
 
 -- This section imports misocdes Miscode.csv
 -- Create a new table for ICAOList
-CREATE TABLE IF NOT EXISTS "$miscode_table_name" AS
-  SELECT * FROM (SELECT * FROM csv('$miscode_csv') WHERE 1=0) AS temp_table;
+CREATE TABLE IF NOT EXISTS "$miscode_table_name" (
+  "HEX" TEXT,
+  "Type ICAO" TEXT,
+  "Miscode" TEXT,
+  "Type 1" TEXT,
+  "Operator" TEXT,
+  "Opr ICAO" TEXT,
+  "C/No" TEXT,
+  "Year Built" TEXT,
+  "Reg'n" TEXT,
+  "Blank1" TEXT,
+  "Blank2" TEXT
+);
 
 
 -- Import data from Miscodes.csv into the new table

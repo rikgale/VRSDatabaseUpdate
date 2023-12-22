@@ -1,3 +1,10 @@
+-- Delete First row 
+DELETE FROM "Year" WHERE rowid = 1;
+
+--Drop Blank Cols used in import
+ALTER TABLE "Year" DROP COLUMN "Blank1";
+ALTER TABLE "Year" DROP COLUMN "Blank2";
+
 -- Change HEX to ModeS
 ALTER TABLE "Year" RENAME COLUMN "HEX" TO "ModeS";
 
