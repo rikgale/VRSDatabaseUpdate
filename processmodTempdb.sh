@@ -29,6 +29,8 @@ sql_files=(
     "9bProcessYearTable.sql"
     "9cProcessMiscodes.sql"
     "9dUpdateYearInFullAircraft.sql"
+    "9eUpdateMisCodesInFA.sql"
+    "9fAddMiscodesToFA.sql"
 )
 
 # Variable to track errors
