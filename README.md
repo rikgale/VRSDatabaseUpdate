@@ -18,3 +18,5 @@ find . -type f -not -path "./sql/*" -exec sed -i 's#/home/pi#/home/'"$(whoami)"'
 6) The scripts should perform a backup as part of the update process, just before any changes are made. However, you may wish to make your own as well.
   
    **I am _not_ responsible if your BaseStation.sqb becomes courrupted.** Use at your own risk.
+
+   Thanks to Faramir for the MilFlagBoolAll.py script
