@@ -5,8 +5,8 @@ backup_path_folder="$base_path/VirtualRadarServer/VRS-Extras/Databases/DatabaseB
 log_file="$base_path/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles/updateVRSdb.log"
 database_path="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/modTemp.sqb"
 base_station_database="$base_path/VirtualRadarServer/VRS-Extras/Databases/Database/BaseStation.sqb"
-preprocess_sql_file="$base_path/VRSDatabaseUpdate/sql/10PreProcessAicraftTable.sql"
-triggers_sql_file="$base_path/VRSDatabaseUpdate/sql/11Triggers.sql"
+preprocess_sql_file="$base_path/VRSDatabaseUpdate/sql/20_PreProcessAicraftTable.sql"
+triggers_sql_file="$base_path/VRSDatabaseUpdate/sql/30_Triggers.sql"
 backup_name="BaseStation_Backup_$(date +%Y-%m-%d_%H-%M).sqb"
 backup_path="$backup_path_folder/$backup_name"
 

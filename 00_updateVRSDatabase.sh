@@ -35,12 +35,12 @@ run_script() {
 }
 
 # Configurable script names
-ADSB_script="ADSB_db_update.sh"
-ICAO24_script="ICAO24_db_update.sh"
-createmodTempdb_script="createmodTempdb.sh"
-processmodTempdb_script="processmodTempdb.sh"
-run_database_update_script="run_database_update.sh"
-updateCountries_script="updateCountries.sh"
+ADSB_script="01_ADSB_db_update.sh"
+ICAO24_script="02_ICAO24_db_update.sh"
+createmodTempdb_script="03_createmodTempdb.sh"
+processmodTempdb_script="04_processmodTempdb.sh"
+run_database_update_script="05_BaseStationUpdate.sh"
+updateCountries_script="06_updateCountries.sh"
 
 # Run scripts
 

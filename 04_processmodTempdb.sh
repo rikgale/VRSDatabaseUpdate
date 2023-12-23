@@ -15,22 +15,22 @@ log_message() {
 
 # List of SQL files in the desired order
 sql_files=(
-    "1LookupAgainstICAOLookUp.sql"
-    "2ProcessMilICAOOperatorLookUp.sql"
-    "3aMilOperatorFlagCodeUpdates.sql"
-    "3bOperatorFlagRegExtract.sql"
-    "4ProcessADSBxTable.sql"
-    "5ProcessICAO24Table.sql"
-    "6ProcessOSkyData.sql"
-    "6aProcessPATable.sql"
-    "7CreateBasicAircraftPre.sql"
-    "8CreatePBAircraft.sql"
-    "9CreateFullAircraft.sql"
-    "9bProcessYearTable.sql"
-    "9cProcessMiscodes.sql"
-    "9dUpdateYearInFullAircraft.sql"
-    "9eUpdateMisCodesInFA.sql"
-    "9fAddMiscodesToFA.sql"
+    "01_CorrectPBCustomICAO.sql"
+    "02_ProcessMilICAOOperatorLookUp.sql"
+    "03_SetMilOperatorFlagCode.sql"
+    "04_OperatorFlagRegExtract.sql"
+    "05_ProcessADSBxTable.sql"
+    "06_ProcessICAO24Table.sql"
+    "07_ProcessOSkyData.sql"
+    "08_ProcessPATable.sql"
+    "09_CreateBasicAircraftPre.sql"
+    "10_CreatePBAircraft.sql"
+    "11_CreateFullAircraft.sql"
+    "12_ProcessYearTable.sql"
+    "13_ProcessMiscodes.sql"
+    "14_UpdateYearInFullAircraft.sql"
+    "15_UpdateMisCodesInFA.sql"
+    "16_AddMiscodesToFA.sql"
 )
 
 # Variable to track errors
