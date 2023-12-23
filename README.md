@@ -8,7 +8,9 @@ Also requires a PlaneBase subscription and access to PlaneBase SQB_Creator to pr
 2) Ensure PB files `BizJets.sqb`, `JetProp.sqb`, `Misocode.csv` and `Year.csv` are in `/VirtualRadarServer/VRS-Extras/DatabaseUpdateFiles` (Contact me for what you need to export from PlaneBase)
 3) The base_path in the scripts is currently set to `/home/pi` if your home dir is not this then you will need to change it. `cd` into VRSDatabaseUpdate and run
    
-`find . -type f -not -path "./sql/*" -exec sed  's#/home/pi#/home/'"$(whoami)"'#g' {} +`
+```
+find . -type f -not -path "./sql/*" -exec sed  's#/home/pi#/home/'"$(whoami)"'#g' {} +
+```
 
   This should replace the base_path to your home directory
    
