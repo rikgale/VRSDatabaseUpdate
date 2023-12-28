@@ -175,6 +175,40 @@ if [ ! -e "$miscode_csv" ]; then
   exit 1
 fi
 
+
+# Backup the original file just in case
+cp "$miscode_csv" "$miscode_csv.bak"
+log "Backup created: $miscode_csv.bak"
+
+# Manually specify the encoding (ISO-8859-1 in this case, adjust if needed)
+encoding="ISO-8859-1"
+
+python3 -c "
+import csv
+import shutil
+
+miscode_csv = '$miscode_csv'
+encoding = '$encoding'.strip()
+
+# Create a temporary file to write cleaned data
+temp_output_file = miscode_csv + '.temp'
+
+with open(miscode_csv, 'r', encoding=encoding, errors='replace') as infile, open(temp_output_file, 'w', encoding='utf-8', newline='') as outfile:
+    reader = csv.reader(infile)
+    writer = csv.writer(outfile)
+    for row in reader:
+        if len(row) >= 5:
+            row[4] = ''.join(char for char in row[4] if char.isalnum() or char in ', ')
+        writer.writerow(row)
+
+# Replace the original file with the cleaned data
+shutil.move(temp_output_file, miscode_csv)
+"
+
+log "Special characters removed from the 'Operator' column. Cleaned file saved to $miscode_csv"
+
+
+
 # Run SQLite commands with logging
 log "Starting SQLite commands."
 
