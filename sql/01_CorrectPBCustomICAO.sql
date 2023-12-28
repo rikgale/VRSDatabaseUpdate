@@ -40,4 +40,9 @@ SET
       WHERE ICAOTypeConversion.OldICAOTypeCode = BJAircraft.ICAOTypeCode
     )
   )
-WHERE ICAOTypeCode IN (SELECT OldICAOTypeCode FROM ICAOTypeConversion);
+WHERE ICAOTypeCode IN (SELECT OldICAOTypeCode FROM ICAOTypeConversion)
+-- Handle the G200 oddity where some G200 have the correct ICAOTypeCode
+  AND NOT (
+    BJAircraft.ICAOTypeCode = 'G200'
+    AND BJAircraft.Manufacturer = 'Akrotech'
+  );
