@@ -116,5 +116,6 @@ SET Registration =
 		    WHEN Registration LIKE 'BHZ-%' THEN SUBSTR(Name, -5)
 	    	WHEN Registration LIKE '6FA-87' THEN SUBSTR(Name, -5)
 		    WHEN Registration LIKE '3B-HNK' THEN SUBSTR(Name, -5)
+        WHEN Registration LIKE '1B-%' THEN SUBSTR(Name, -5)
         ELSE Registration
     END;

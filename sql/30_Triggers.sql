@@ -136,6 +136,44 @@ BEGIN
   AND AircraftID = NEW.AircraftID;
 END;
 
+-- Drop GNYLYNX trigger
+DROP TRIGGER IF EXISTS GNYLYNX;
+-- Recreate GNYLYNX trigger
+CREATE TRIGGER GNYLYNX
+  AFTER UPDATE
+  ON Aircraft
+BEGIN
+  UPDATE Aircraft
+  SET Manufacturer = 'Westland',
+      Type = 'Westland Sea Lynx MK.88A',
+      OperatorFlagCode = 'GNY-LYNX',
+      RegisteredOwners = 'German Navy',
+	  UserBool1 = '1',
+	  UserString1 = NULL
+  WHERE OperatorFlagCode = 'GNY'
+  AND ICAOTypeCode = 'LYNX'
+  AND AircraftID = NEW.AircraftID;
+END;
+
+-- Drop GAMNH90 trigger
+DROP TRIGGER IF EXISTS GAMNH90;
+-- Recreate GNYNH90 trigger
+CREATE TRIGGER GAMNH90
+  AFTER UPDATE
+  ON Aircraft
+BEGIN
+  UPDATE Aircraft
+  SET Manufacturer = 'NH Industries',
+      Type = 'NH Industries NH90-NTH',
+      OperatorFlagCode = 'GAM-NH90',
+      RegisteredOwners = 'German Army',
+	  UserBool1 = '1',
+	  UserString1 = NULL
+  WHERE OperatorFlagCode = 'GAM'
+  AND ICAOTypeCode = 'NH90'
+  AND AircraftID = NEW.AircraftID;
+END;
+
 -- Drop SetH60Manufacturer trigger
 DROP TRIGGER IF EXISTS SetH60Manufacturer;
 -- Recreate SetH60Manufacturer trigger
