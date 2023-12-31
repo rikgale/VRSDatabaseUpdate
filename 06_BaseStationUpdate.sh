@@ -162,7 +162,9 @@ FROM modTemp.OperatorFlags -- Use the attached database name as a prefix
 WHERE Aircraft.Registration = modTemp.OperatorFlags.Registration
   AND Aircraft.OperatorFlagCode NOT LIKE '%' || Aircraft.Registration || '%';
 
-
+-- Clean out any non A-Z, 0-9 ModeS that might have slipped through
+DELETE FROM Aircraft
+WHERE ModeS GLOB '*[^A-Za-z0-9]*';
 
 -- Detach modTemp database
 DETACH DATABASE modTemp;
