@@ -27,7 +27,6 @@ mil_type_op_lookup_table_name="MilICAOOperatorLookup"
 mil_icao_op_lookup_url="https://raw.githubusercontent.com/rikgale/ICAOList/main/MilICAOOperatorLookUp.csv"
 os_db_path="$base_path/DatabaseUpdateFiles/aircraftDatabase.csv"
 os_db_table_name="OSkyData"
-download_os_db_csv="https://opensky-network.org/datasets/metadata/aircraftDatabase.csv"
 reg_prefix_list_url="https://raw.githubusercontent.com/rikgale/ICAOList/main/RegPrefixList.csv"
 reg_prefix_list_csv="$base_path/DatabaseUpdateFiles/RegPrefixList.csv"
 reg_prefix_list_table_name="RegPrefixList"
@@ -106,11 +105,6 @@ delete_if_exists "$icao_type_conversion_csv"
 # Download the latest ICAOTypeConversion.csv from GitHub
 download_file "$icao_type_conversion_url" "$icao_type_conversion_csv"
 
-# Check if aircraftDatabase.csv (OpenSky) exists and delete it if it does
-delete_if_exists "$os_db_path"
-
-# Download the aircraftDatabase.csv (OpenSky) using the download_file function
-download_file "$download_os_db_csv" "$os_db_path"
 
 # Check id modTemp.sqb exists and delete it if it does
 delete_if_exists "$database_path"

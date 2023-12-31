@@ -32,3 +32,6 @@ ALTER TABLE "Miscode" RENAME COLUMN "Reg'n" TO "Registration";
 -- Delete rows where Miscode is null or an empty string 
 DELETE FROM "Miscode" WHERE IFNULL("Miscode", '') = '';
 
+-- Delete rows where Miscode contains non A-Z or 0-9 characters 
+DELETE FROM "Miscode"
+WHERE Miscode GLOB '*[^A-Za-z0-9]*';

@@ -37,10 +37,11 @@ run_script() {
 # Configurable script names
 ADSB_script="01_ADSB_db_update.sh"
 ICAO24_script="02_ICAO24_db_update.sh"
-createmodTempdb_script="03_createmodTempdb.sh"
-processmodTempdb_script="04_processmodTempdb.sh"
-run_database_update_script="05_BaseStationUpdate.sh"
-updateCountries_script="06_updateCountries.sh"
+OSky_script="03_OSky_db_update.sh"
+createmodTempdb_script="04_createmodTempdb.sh"
+processmodTempdb_script="05_processmodTempdb.sh"
+run_database_update_script="06_BaseStationUpdate.sh"
+updateCountries_script="07_updateCountries.sh"
 
 # Run scripts
 
@@ -48,6 +49,7 @@ total_start_time=$(date +%s)
 
 run_script "$ADSB_script"
 run_script "$ICAO24_script"
+run_script "$OSky_script"
 run_script "$createmodTempdb_script"
 run_script "$processmodTempdb_script"
 run_script "$run_database_update_script"
