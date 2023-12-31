@@ -84,6 +84,13 @@ UPDATE FullAircraft
 SET OperatorFlagCode = 'RCH-' || ICAOTypeCode
 WHERE ICAOTypeCode = 'BT7' AND OperatorFlagCode LIKE 'RCH-%';
 
+/* French Tweaks */
+
+UPDATE FullAircraft
+SET OperatorFlagCode = 'FRU-' || ICAOTypeCode
+WHERE OperatorFlagCode = 'FRU' AND UserNotes NOT LIKE '%Miscode%';
+
+
 
   
  
