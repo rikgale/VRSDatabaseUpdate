@@ -56,6 +56,9 @@ SET OperatorFlagCode =
 	WHEN OperatorFlagCode = 'RCH-PC12' THEN 'RCH-U28'
 	WHEN OperatorFlagCode = 'RCH-SR20' THEN 'RCH-T53'
 	WHEN OperatorFlagCode = 'RCH-C172' THEN 'RCH-T41'
+	WHEN OperatorFlagCode = 'RCH-DH8A' THEN 'RCH-E9A'
+	WHEN OperatorFlagCode = 'RCH-DH8B' THEN 'RCH-E9A'
+	WHEN OperatorFlagCode = 'RCH-DHC6' THEN 'RCH-UV18'
 	WHEN OperatorFlagCode = 'RCH-GLF5' AND Type LIKE '%C-37A%' THEN 'RCH-C37A'
 	WHEN OperatorFlagCode = 'RCH-GLF5' AND Type LIKE '%C-37B%' THEN 'RCH-C37B'
 	WHEN OperatorFlagCode = 'RCH-GLEX' AND Type LIKE '%E-11%' THEN 'RCH-E11'
@@ -89,6 +92,13 @@ WHERE ICAOTypeCode = 'BT7' AND OperatorFlagCode LIKE 'RCH-%';
 UPDATE FullAircraft
 SET OperatorFlagCode = 'FRU-' || ICAOTypeCode
 WHERE OperatorFlagCode = 'FRU' AND UserNotes NOT LIKE '%Miscode%';
+
+/* Civil Operators Tweaks */
+
+UPDATE FullAircraft
+SET OperatorFlagCode = 'KZR-' || ICAOTypeCode || 'FA'
+WHERE RegisteredOwners = 'FlyArystan'
+  AND SUBSTR(OperatorFlagCode, 1, 3) = 'KZR';
 
 
 
