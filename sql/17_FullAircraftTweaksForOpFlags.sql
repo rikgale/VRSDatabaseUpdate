@@ -95,10 +95,17 @@ WHERE OperatorFlagCode = 'FRU' AND UserNotes NOT LIKE '%Miscode%';
 
 /* Civil Operators Tweaks */
 
+-- FlyArystan as part of Air Astana
 UPDATE FullAircraft
 SET OperatorFlagCode = 'KZR-' || ICAOTypeCode || 'FA'
 WHERE RegisteredOwners = 'FlyArystan'
   AND SUBSTR(OperatorFlagCode, 1, 3) = 'KZR';
+
+-- Correction for PlaneBase listing some CC-xxx as LATAM Columbia rather than LATAM Airlines Chilie
+UPDATE FullAircraft
+SET OperatorFlagCode = 'LAN-' || ICAOTypeCode,
+    RegisteredOwners = 'LATAM Airlines Chile'
+WHERE Registration LIKE 'CC-%' AND RegisteredOwners = 'LATAM Colombia';
 
 
 
