@@ -155,6 +155,25 @@ BEGIN
   AND AircraftID = NEW.AircraftID;
 END;
 
+-- Drop GNYS61 trigger
+DROP TRIGGER IF EXISTS GNYS61;
+-- Recreate GNYS61 trigger
+CREATE TRIGGER GNYS61
+  AFTER UPDATE
+  ON Aircraft
+BEGIN
+  UPDATE Aircraft
+  SET Manufacturer = 'Westland',
+      Type = 'Westland Sea King MK.41',
+      OperatorFlagCode = 'GNY-S61',
+      RegisteredOwners = 'German Navy',
+	  UserBool1 = '1',
+	  UserString1 = NULL
+  WHERE OperatorFlagCode = 'GNY'
+  AND ICAOTypeCode = 'S61'
+  AND AircraftID = NEW.AircraftID;
+END;
+
 -- Drop GAMNH90 trigger
 DROP TRIGGER IF EXISTS GAMNH90;
 -- Recreate GNYNH90 trigger
