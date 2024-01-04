@@ -32,6 +32,7 @@ sql_files=(
     "15_UpdateMisCodesInFA.sql"
     "16_AddMiscodesToFA.sql"
     "17_FullAircraftTweaksForOpFlags.sql"
+    "18_FullAircraftSetFullOpICAOCode.sql"
 )
 
 # Variable to track errors
