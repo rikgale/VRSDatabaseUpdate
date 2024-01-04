@@ -89,6 +89,7 @@ WHERE ICAOTypeCode = 'BT7' AND OperatorFlagCode LIKE 'RCH-%';
 
 /* French Tweaks */
 
+-- Securitie Civile - this query might be better off sitting in 18_blah.sql
 UPDATE FullAircraft
 SET OperatorFlagCode = 'FRU-' || ICAOTypeCode
 WHERE OperatorFlagCode = 'FRU' AND UserNotes NOT LIKE '%Miscode%';
@@ -106,6 +107,13 @@ UPDATE FullAircraft
 SET OperatorFlagCode = 'LAN-' || ICAOTypeCode,
     RegisteredOwners = 'LATAM Airlines Chile'
 WHERE Registration LIKE 'CC-%' AND RegisteredOwners = 'LATAM Colombia';
+
+-- MSC Air Cargo B77L Operated by Air Atlas
+UPDATE FullAircraft
+SET OperatorFlagCode = OperatorFlagCode || 'MSCAC', RegisteredOwners = 'MSC Air Cargo'
+WHERE ICAOTypeCode = 'B77L'
+  AND RegisteredOwners = 'Atlas Air'
+  AND Registration IN ('N707GT', 'N708GT', 'N709GT', 'N710GT');
 
 
 
