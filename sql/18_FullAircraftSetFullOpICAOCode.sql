@@ -4,6 +4,7 @@ WHERE OperatorFlagCode
 IN (
 	'VJT', /*VistaJet*/
 	'EJA', /*Netjets Aviation*/
+	'NJE', /*Netjets Aviation Europe*/
 	'LXJ', /*Flexjet*/
 	'FJO', /*Flexjet Operations Malta*/
 	'EJM', /*Executive Jet Management*/
