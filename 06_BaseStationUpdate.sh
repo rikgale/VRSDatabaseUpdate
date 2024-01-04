@@ -39,7 +39,7 @@ log_message "Creating backup of BaseStation database: $backup_name"
 
 sqlite3 "$base_station_database" <<EOF
 PRAGMA locking_mode=EXCLUSIVE;
-PRAGMA busy_timeout=50000;
+PRAGMA busy_timeout=500000;
 VACUUM INTO '$backup_path';
 EOF
 
