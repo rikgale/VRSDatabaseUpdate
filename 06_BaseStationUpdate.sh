@@ -14,6 +14,7 @@ backup_path="$backup_path_folder/$backup_name"
 # Function to log messages to the file
 log_message() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" >> "$log_file"
+    echo "$(date +"%Y-%m-%d %H:%M:%S") - $1"
 }
 
 
