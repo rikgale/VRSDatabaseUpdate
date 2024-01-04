@@ -48,6 +48,7 @@ update_database_sql="$base_path/DatabaseUpdateFiles/sql/create_temp_database.sql
 log() {
   local message=$1
   echo "$(date +"%Y-%m-%d %H:%M:%S") - $message" >> "$log_file"
+  echo "$(date +"%Y-%m-%d %H:%M:%S") - $message"
 }
 
 # Download file function with logging
