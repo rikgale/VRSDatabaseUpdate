@@ -13,7 +13,7 @@ INSERT OR IGNORE INTO "FullAircraft" (
 )
 SELECT
     "Miscode"."Miscode",
-    'Known Miscode.',
+    "Miscode"."UserNotes",
     "Miscode"."ICAOTypeCode",
     "Miscode"."Type",
     "Miscode"."RegisteredOwners",
