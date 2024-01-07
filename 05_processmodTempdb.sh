@@ -29,8 +29,8 @@ sql_files=(
     "12_ProcessYearTable.sql"
     "13_ProcessMiscodes.sql"
     "14_UpdateYearInFullAircraft.sql"
-    "15_UpdateMisCodesInFA.sql"
-    "16_AddMiscodesToFA.sql"
+#    "15_UpdateMisCodesInFA.sql"
+#    "16_AddMiscodesToFA.sql"
     "17_FullAircraftTweaksForOpFlags.sql"
     "18_FullAircraftSetFullOpICAOCode.sql"
 )

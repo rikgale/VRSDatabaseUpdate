@@ -35,3 +35,29 @@ DELETE FROM "Miscode" WHERE IFNULL("Miscode", '') = '';
 -- Delete rows where Miscode contains non A-Z or 0-9 characters 
 DELETE FROM "Miscode"
 WHERE Miscode GLOB '*[^A-Za-z0-9]*';
+
+-- Add a new column called UserNotes of type TEXT to the Miscode table
+ALTER TABLE Miscode
+ADD COLUMN UserNotes TEXT;
+
+-- Update OperatorFlagCode by appending ICAOTypeCode with a hyphen if OperatorFlagCode is not blank or null
+-- Convert YearBuilt to INTEGER, keeping only numeric characters
+-- Set YearBuilt to NULL where the numeric value is equal to 0
+-- Update UserNotes based on conditions
+UPDATE Miscode
+SET 
+  OperatorFlagCode = CASE 
+                      WHEN IFNULL(OperatorFlagCode, '') != '' 
+                      THEN OperatorFlagCode || '-' || ICAOTypeCode 
+                      ELSE OperatorFlagCode 
+                    END,
+  YearBuilt = CASE 
+                WHEN IFNULL(YearBuilt, '') != '' 
+                THEN CAST(YearBuilt AS INTEGER)
+                ELSE NULL
+              END,
+  UserNotes = CASE
+                WHEN IFNULL(CorrectModeS, '') = '' THEN 'Known Micode.'
+                WHEN IFNULL(CorrectModeS, '') != '' THEN 'Miscode. Correct ModeS code: ' || CorrectModeS
+                ELSE UserNotes
+              END;
