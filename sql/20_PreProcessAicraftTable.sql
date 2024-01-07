@@ -8,6 +8,14 @@ SET LastModified = FirstCreated,
     UserTag = NULL
 WHERE UPPER(UserTag) = 'RESET';
 
+UPDATE Aircraft
+SET
+    LastModified = FirstCreated,
+    UserNotes = NULL
+WHERE
+    UserNotes LIKE '%Updated on%';
+
+
 -- Set UserBool1 = 1 for some military. Needed for one of the queries below - gets overwritted later in overall process.
 UPDATE Aircraft
 SET UserBool1 = 1
