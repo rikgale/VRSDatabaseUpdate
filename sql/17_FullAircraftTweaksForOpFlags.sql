@@ -115,7 +115,22 @@ WHERE ICAOTypeCode = 'B77L'
   AND RegisteredOwners = 'Atlas Air'
   AND Registration IN ('N707GT', 'N708GT', 'N709GT', 'N710GT');
 
+-- SkyWest Airlines opearting for DAL, AAL, UAL and ASA
+UPDATE FullAircraft
+SET OperatorFlagCode = SUBSTR(OperatorFlagCode, 1, 3) || '-' || ICAOTypeCode || 'UAL'
+WHERE SUBSTR(OperatorFlagCode, 1, 3) = 'SKW' AND RegisteredOwners LIKE '%United Express%';
 
+UPDATE FullAircraft
+SET OperatorFlagCode = SUBSTR(OperatorFlagCode, 1, 3) || '-' || ICAOTypeCode || 'DAL'
+WHERE SUBSTR(OperatorFlagCode, 1, 3) = 'SKW' AND RegisteredOwners LIKE '%Delta Conn%';
+
+UPDATE FullAircraft
+SET OperatorFlagCode = SUBSTR(OperatorFlagCode, 1, 3) || '-' || ICAOTypeCode || 'AAL'
+WHERE SUBSTR(OperatorFlagCode, 1, 3) = 'SKW' AND RegisteredOwners LIKE '%American Eagle%';
+
+UPDATE FullAircraft
+SET OperatorFlagCode = SUBSTR(OperatorFlagCode, 1, 3) || '-' || ICAOTypeCode || 'ASA'
+WHERE SUBSTR(OperatorFlagCode, 1, 3) = 'SKW' AND RegisteredOwners LIKE '%Alaska%';
 
   
  
